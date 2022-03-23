@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="card-3d-wrap mx-auto">
+    <div class="card-3d-wrapper">
+      <div class="card-front">
+        <div class="center-wrap">
+          <div class="section text-center">
+
+            <h4 class="mb-4 pb-3">Novo Chamado</h4>
+
+            <form class="formrun" autocomplete="off">
+              <div class="form-group">
+                <input type="text" name="titulo" class="form-control" [(ngModel)]="titulo" [required]="true"
+                  placeholder="Título" id="tituloinput" autocomplete="off" [maxLength]="35" [ngClass]="{'form-control-danger': _errorTitulo}" (blur)="_errorTitulo = '' ">
+                <span class="legend">({{this.titulo.length}}/35)</span>
+              </div>
+
+              <div class="form-group mt-2">
+                <textarea id="mensage" rows="5" cols="43" name="mensage" class="mensagem" [(ngModel)]="mensage" [required]="true" [maxLength]="1000"
+                  placeholder="Digite sua mensagem aqui." autocomplete="off" [ngClass]="{'mensagem-danger': _errorMensage}" (blur)="_errorMensage = '' "></textarea>
+                <span class="legend">({{this.mensage.length}}/1000)</span>
+              </div>
+              <div id="priority-container-0">
+                <span id="priority">Prioridade:</span>
+                <div id="priority-container-1">
+                  <input type="checkbox" value="baixo" id="baixo" [checked]="" (click)="onlyOne($event)" class="checkbox"/>
+                  <span id="remember">Baixo</span>
+
+                  <input type="checkbox" value="normal" id="normal" [checked]="" (click)="onlyOne($event)" class="checkbox"/>
+                  <span id="remember">Normal</span>
+
+                  <input type="checkbox" value="urgente" id="urgente" [checked]="" (click)="onlyOne($event)" class="checkbox"/>
+                  <span id="remember">Urgente</span>
+                </div>
+              </div>
+              <a type="submit" class="btn mt-4" (click)="abrirChamado()">Abrir</a>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

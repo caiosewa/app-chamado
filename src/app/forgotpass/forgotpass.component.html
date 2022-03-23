@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="card-3d-wrap mx-auto">
+    <div class="card-3d-wrapper">
+      <div class="card-front">
+        <div class="btn-back">
+          <a [routerLink]="'/login'">
+          <span class="iconify" data-icon="uil:angle-left-b"></span>
+          </a>
+        </div>
+        <div class="center-wrap">
+          <div class="section text-center">
+
+            <h4 class="mb-4 pb-3">Esqueci a senha</h4>
+
+            <form class="formrun" autocomplete="off">
+              <div class="form-group">
+                <input type="email" name="email" class="form-control"
+                  [ngClass]="{'form-control-danger': _errorEmail}" [(ngModel)]="email" required="required"
+                  placeholder="Email" id="loginInput" autocomplete="off" (blur)="validarEmail()">
+
+                <i class="input-icon uil uil-at" [ngClass]="{'icon-danger': _errorEmail}"></i>
+                <div class="space">
+                  <div class="text-danger" *ngIf='!emailOk'>{{_errorEmail}}</div>
+                </div>
+              </div>
+
+              <a type="submit" class="btn mt-4" (click)="forgotPass()">Entrar</a>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

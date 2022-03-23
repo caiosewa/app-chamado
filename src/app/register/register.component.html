@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="card-3d-wrap mx-auto">
+    <div class="card-3d-wrapper">
+      <div class="card-front">
+        <div class="center-wrap">
+          <div class="section text-center">
+            <h4 class="mb-4 pb-3">Registrar-se</h4>
+
+            <form autocomplete="off">
+
+              <div class="form-group mt-2">
+                <input type="name" name="nameRegister" class="form-control"
+                  [ngClass]="{'form-control-danger': _errorNameRegister}" [(ngModel)]="nameregister"
+                  required="required" placeholder="Nome Completo" id="nameRegister" autocomplete="off"
+                  (blur)="validarNameRegister()" [maxLength]="80">
+                <i class="input-icon uil uil-user" [ngClass]="{'icon-danger': _errorNameRegister}"></i>
+                <div class="space">
+                  <div class="text-danger" *ngIf='!nameRegisterOk'>{{_errorNameRegister}}</div>
+                </div>
+              </div>
+
+              <div class="form-group mt-2">
+                <input type="email" name="emailRegister" class="form-control"
+                  [ngClass]="{'form-control-danger': _errorEmailRegister}" [(ngModel)]="emailregister"
+                  required="required" placeholder="Email" id="emailRegister" autocomplete="off"
+                  (blur)="validarEmailRegister()">
+                <i class="input-icon uil uil-at" [ngClass]="{'icon-danger': _errorEmailRegister}"></i>
+                <div class="space">
+                  <div class="text-danger" *ngIf='!emailRegisterOk'>{{_errorEmailRegister}}</div>
+                </div>
+              </div>
+
+              <div class="form-group mt-2">
+                <input type="password" name="passwordRegister" class="form-control"
+                  [ngClass]="{'form-control-danger': _errorPasswordRegister , 'form-control-fraco': _errorPasswordFraco}" [(ngModel)]="passwordregister"
+                  required="required" placeholder="Senha" id="passwordRegister" autocomplete="off"
+                  (blur)="isPasswordRegister()">
+                <i class="input-icon uil uil-lock-alt" [ngClass]="{'icon-danger': _errorPasswordRegister, 'icon-pass-fraco': _errorPasswordFraco}"></i>
+                <ng-template #passfraco>
+                  <div class="text-fraco" *ngIf='_errorPasswordFraco !== ""'>{{_errorPasswordFraco}}</div>
+                </ng-template>
+                <div class="space">
+                  <div class="text-danger" *ngIf='!passwordRegisterOk; else passfraco'>{{_errorPasswordRegister}}</div>
+                </div>
+              </div>
+
+              <div class="form-group mt-2">
+                <input type="password" name="passwordConfirm" class="form-control"
+                  [ngClass]="{'form-control-danger': _errorPasswordConfirm}" [(ngModel)]="passwordconfirm"
+                  required="required" placeholder="Confirme a senha" id="passwordConfirm" autocomplete="off" (blur)="validarPasswordConfirm()">
+                <i class="input-icon uil uil-lock-alt" [ngClass]="{'icon-danger': _errorPasswordConfirm}"></i>
+                <div class="space">
+                  <div class="text-danger" *ngIf='!passwordConfirmOk'>{{_errorPasswordConfirm}}</div>
+                </div>
+              </div>
+
+              <div class="form-group mt-2">
+                <select id="usertype" class="form-control" [ngClass]="{'form-control-danger': _errorType}" (blur)="getType($event)">
+                  <option value="">Selecione um tipo de Usuário</option>
+                  <option value="Usuario">Usuario</option>
+                  <option value="Analista">Analista</option>
+                  <option value="Gerente">Gerente</option>
+                </select>
+                <div class="space">
+                  <div class="text-danger" *ngIf='_errorType !== ""'>{{_errorType}}</div>
+                </div>
+              </div>
+
+              <a (click)="register()" class="btn mt-4">Registrar</a>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

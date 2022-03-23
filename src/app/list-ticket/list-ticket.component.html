@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="card-3d-wrap mx-auto">
+    <div class="card-3d-wrapper">
+      <div class="card-front">
+        <div class="center-wrap">
+          <div class="section text-center">
+            <section>
+              <h4 class="mb-4 pb-3">Lista de chamados</h4>
+              <div class="tbl-header">
+                <table cellpadding="0" cellspacing="0" border="0">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Título</th>
+                      <th>Status</th>
+                      <th>Prioridade</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div class="tbl-content">
+                <table cellpadding="0" cellspacing="0" border="0">
+                  <tbody>
+                    <tr *ngFor="let ticket of tickets">
+                      <td>{{ticket.id}}</td>
+                      <td>{{ticket.titulo}}</td>
+                      <td>{{ticket.status}}</td>
+                      <td>{{ticket.prioridade}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
