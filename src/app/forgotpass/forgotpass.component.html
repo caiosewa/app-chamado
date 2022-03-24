@@ -4,7 +4,7 @@
       <div class="card-front">
         <div class="btn-back">
           <a [routerLink]="'/login'">
-          <span class="iconify" data-icon="uil:angle-left-b"></span>
+            <span class="iconify" data-icon="uil:angle-left-b"></span>
           </a>
         </div>
         <div class="center-wrap">
@@ -14,9 +14,9 @@
 
             <form class="formrun" autocomplete="off">
               <div class="form-group">
-                <input type="email" name="email" class="form-control"
-                  [ngClass]="{'form-control-danger': _errorEmail}" [(ngModel)]="email" required="required"
-                  placeholder="Email" id="loginInput" autocomplete="off" (blur)="validarEmail()">
+                <input type="email" name="email" class="form-control" [ngClass]="{'form-control-danger': _errorEmail}"
+                  [(ngModel)]="email" required="required" placeholder="Email" id="loginInput" autocomplete="off"
+                  (blur)="validarEmail()">
 
                 <i class="input-icon uil uil-at" [ngClass]="{'icon-danger': _errorEmail}"></i>
                 <div class="space">
@@ -24,7 +24,48 @@
                 </div>
               </div>
 
-              <a type="submit" class="btn mt-4" (click)="forgotPass()">Entrar</a>
+              <div class="form-group">
+                <input type="text" name="tokenreset" class="form-control"
+                  [ngClass]="{'form-control-danger': _errorToken, 'form-disabled': !tokenSolicitado}"
+                  [(ngModel)]="tokenreset" required="required" placeholder="Token de 6 dígitos" id="tokenreset"
+                  autocomplete="off" (blur)="validarToken()" [maxLength]="6" [disabled]="!tokenSolicitado">
+
+                <i class="iconify" id=secret data-icon="uil:keyhole-square"
+                  [ngClass]="{'icon-danger': _errorToken}"></i>
+                <div class="space">
+                  <div class="text-danger" *ngIf='!tokenOK'>{{_errorToken}}</div>
+                </div>
+              </div>
+
+              <div class="form-group mt-2">
+                <input type="password" name="passwordRegister" class="form-control"
+                  [ngClass]="{'form-control-danger': _errorPasswordRegister , 'form-control-fraco': _errorPasswordFraco, 'form-disabled': !tokenSolicitado}"
+                  [(ngModel)]="passwordregister" required="required" placeholder="Senha" id="passwordRegister"
+                  autocomplete="off" (blur)="isPasswordRegister()" [disabled]="!tokenSolicitado">
+                <i class="input-icon uil uil-lock-alt"
+                  [ngClass]="{'icon-danger': _errorPasswordRegister, 'icon-pass-fraco': _errorPasswordFraco}"></i>
+                <ng-template #passfraco>
+                  <div class="text-fraco" *ngIf='_errorPasswordFraco !== ""'>{{_errorPasswordFraco}}</div>
+                </ng-template>
+                <div class="space">
+                  <div class="text-danger" *ngIf='!passwordRegisterOk; else passfraco'>{{_errorPasswordRegister}}</div>
+                </div>
+              </div>
+
+              <div class="form-group mt-2">
+                <input type="password" name="passwordConfirm" class="form-control"
+                  [ngClass]="{'form-control-danger': _errorPasswordConfirm, 'form-disabled': !tokenSolicitado}" [(ngModel)]="passwordconfirm"
+                  required="required" placeholder="Confirme a senha" id="passwordConfirm" autocomplete="off"
+                  (blur)="validarPasswordConfirm()" [disabled]="!tokenSolicitado">
+                <i class="input-icon uil uil-lock-alt" [ngClass]="{'icon-danger': _errorPasswordConfirm}"></i>
+                <div class="space">
+                  <div class="text-danger" *ngIf='!passwordConfirmOk'>{{_errorPasswordConfirm}}</div>
+                </div>
+              </div>
+
+              <a type="submit" class="btn mt-4" (click)="forgotPass()">Solicitar</a>
+
+              <a type="submit" class="btn mt-4" [ngClass]="{'btn-disabled': !tokenSolicitado}" (click)="changePass()">Trocar Senha</a>
 
             </form>
           </div>

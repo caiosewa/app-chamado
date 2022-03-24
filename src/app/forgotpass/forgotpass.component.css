@@ -45,11 +45,11 @@ h6 span {
   position: relative;
   width: 500px;
   max-width: 100%;
-  height: 500px;
+  height: 600px;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   perspective: 900px;
-  margin-top: 60px;
+  margin-top: 15vh;
 }
 
 .card-3d-wrapper {
@@ -217,7 +217,8 @@ select.form-control:not([size]):not([multiple]) {
   text-transform: uppercase;
   -webkit-transition: all 200ms linear;
   transition: all 200ms linear;
-  padding: 0 30px;
+  padding: 0 15px;
+  margin-left: 15px;
   letter-spacing: 1px;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -236,6 +237,36 @@ select.form-control:not([size]):not([multiple]) {
   background-color: #ffeba7;
   color: #102770 !important;
   box-shadow: 0 8px 24px 0 rgba(255, 235, 167, 0.2);
+}
+
+.btn-disabled {
+  pointer-events: none;
+  border-radius: 4px;
+  height: 44px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+  padding: 0 15px;
+  margin-left: 15px;
+  letter-spacing: 1px;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  text-align: center;
+  border: none;
+  background-color: #61657286;
+  color: #ffeba7 !important;
 }
 
 .btn:active,
@@ -268,6 +299,12 @@ select.form-control:not([size]):not([multiple]) {
 
 .form-control-danger {
   border: 1px solid #d9534f;
+}
+
+.form-disabled {
+  color: #353535;
+  background-color: #79797e59;
+  border: 0.5px solid #1f2029;
 }
 
 .icon-danger {
@@ -308,4 +345,18 @@ select.form-control:not([size]):not([multiple]) {
   height: 45px !important;
   width: 45px !important;
   cursor: pointer;
+}
+
+.iconify#secret {
+  position: absolute;
+  top: 7px;
+  left: 12px;
+  height: 25px !important;
+  font-size: 24px;
+  line-height: 40px;
+  text-align: left;
+  color: #ffeba7;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+  cursor: context-menu;
 }
