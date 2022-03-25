@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   }
 
   //  DECLARACAO DAS VARIAVEIS ---- LOGIN
-  usuarioLogin = new Usuario("", "")
+  usuarioLogin = new Usuario("", "", "")
 
   email: string = "";
   password: string = "";

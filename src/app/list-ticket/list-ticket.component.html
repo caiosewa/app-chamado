@@ -5,15 +5,17 @@
         <div class="center-wrap">
           <div class="section text-center">
             <section>
-              <h4 class="mb-4 pb-3">Lista de chamados</h4>
+              <h4 class="mb-4 pb-3">Tickets</h4>
+
               <div class="tbl-header">
                 <table cellpadding="0" cellspacing="0" border="0">
                   <thead>
                     <tr>
-                      <th>Id</th>
+                      <th style="width:100px">Id</th>
                       <th>Título</th>
-                      <th>Status</th>
-                      <th>Prioridade</th>
+                      <th style="width:150px">Status</th>
+                      <th style="width:150px">Prioridade</th>
+                      <th style="width:120px"></th>
                     </tr>
                   </thead>
                 </table>
@@ -22,18 +24,45 @@
                 <table cellpadding="0" cellspacing="0" border="0">
                   <tbody>
                     <tr *ngFor="let ticket of tickets">
-                      <td>{{ticket.id}}</td>
+                      <td style="width:100px">{{ticket.id}}</td>
                       <td>{{ticket.titulo}}</td>
-                      <td>{{ticket.status}}</td>
-                      <td>{{ticket.prioridade}}</td>
+                      <td style="width:150px">{{ticket.status}}</td>
+                      <td style="width:150px">{{ticket.prioridade}}</td>
+                      <td *ngIf='isAdmin' style="width:120px"><a class="link" (click)="editTicket(ticket)">Editar</a></td>
+                      <td *ngIf='!isAdmin' style="width:120px"><a class="link" (click)="editTicket(ticket)">Edit/View</a></td>
                   </tr>
                   </tbody>
                 </table>
               </div>
-            </section>
+              <div class="div-tab">
+                <button class="new-ticket" *ngIf='!isAdmin' [routerLink]="'/new-ticket'">Criar Ticket</button>
+                <form class="search-form">
+                  <button type="submit" class="search-button" (click)="searchTicket()">
+                    <svg class="submit-button">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                  </svg>
+                </button>
+                <input class="input-search" type="text" placeholder="Buscar pelo ID..." class="search-input" name="idvalue" [(ngModel)]="idvalue" (dragenter)="searchTicket()" autocomplete="off">
+                <button type="submit" class="search-button" (click)="clearSearch()">
+                  <svg class="submit-button">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </section>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
+  <symbol id="search" viewBox="0 0 32 32">
+    <path d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z" />
+  </symbol>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
+  <symbol id="close" viewBox="0 0 32 32">
+    <path d="M6.2253 4.81108C5.83477 4.42056 5.20161 4.42056 4.81108 4.81108C4.42056 5.20161 4.42056 5.83477 4.81108 6.2253L10.5858 12L4.81114 17.7747C4.42062 18.1652 4.42062 18.7984 4.81114 19.1889C5.20167 19.5794 5.83483 19.5794 6.22535 19.1889L12 13.4142L17.7747 19.1889C18.1652 19.5794 18.7984 19.5794 19.1889 19.1889C19.5794 18.7984 19.5794 18.1652 19.1889 17.7747L13.4142 12L19.189 6.2253C19.5795 5.83477 19.5795 5.20161 19.189 4.81108C18.7985 4.42056 18.1653 4.42056 17.7748 4.81108L12 10.5858L6.2253 4.81108Z" />
+  </symbol>

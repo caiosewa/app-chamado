@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Register } from '../model/register';
 
 @Component({
@@ -8,7 +9,7 @@ import { Register } from '../model/register';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -18,7 +19,7 @@ export class RegisterComponent implements OnInit {
 
   filtro: any = /^([a-zA-zà-úÀ-Ú]|\s+)+$/;
   num: any = /^[0-9]+$/;
-  pass: any = /^(?=.*[$*&@#])[0-9a-zA-Z$*&@#]+$/;
+  pass: any = /^(?=.*[!$*&@#])[0-9a-zA-Z!$*&@#]+$/;
   regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
   nameregister: string = "";
@@ -175,6 +176,7 @@ export class RegisterComponent implements OnInit {
 
         let jsonReg = { name: this.userRegister.nameregister, email: this.userRegister.emailregister, password: this.userRegister.passwordregister, typeuser: this.userRegister.typeSelected}
         console.log(jsonReg)
+        this.router.navigate(['login'])
       }
     }
 

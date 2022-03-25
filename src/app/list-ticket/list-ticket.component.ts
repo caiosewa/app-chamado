@@ -1,23 +1,73 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Globals } from '../model/Globals';
+import { Ticket } from '../model/ticket';
+import { Usuario } from '../model/usuario';
 
 @Component({
   selector: 'app-list-ticket',
   templateUrl: './list-ticket.component.html',
-  styleUrls: ['./list-ticket.component.css']
+  styleUrls: ['./list-ticket.component.css'],
+  providers: [Globals]
 })
 export class ListTicketComponent implements OnInit {
 
-  tickets = [
-              {"id":1, "titulo":"Teste 01", "status":"Aberto", "prioridade":"Alta"},
-              {"id":2, "titulo":"Teste 02", "status":"Fechado", "prioridade":"Normal"},
-              {"id":3, "titulo":"Teste 03", "status":"Em andamento", "prioridade":"Urgente"}
-            ];
+  ticket = new Ticket("", "", "", "");
+  ticket1 = new Ticket("1","Teste 01", "Aberto", "Alta" )
+  ticket2 = new Ticket("2","Teste 02", "Fechado", "Normal" )
+  ticket3 = new Ticket("3","Teste 03", "Em andamento", "Urgente" )
+
+  tickets = [this.ticket1,this.ticket2,this.ticket3];
+
+  usuario = new Usuario("", "", "usuario");
+  analista = new Usuario("", "", "analista");
+  gerente = new Usuario("", "", "gerente");
+  logado = new Usuario("", "", "");
+
+  isAdmin: boolean = false;
+
+  idvalue: string = "";
+  ticketId: string = "";
+
+  ticketsPesquisados = [this.ticket1,this.ticket2,this.ticket3]
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-
+    this.logado = this.usuario
+    if (this.logado.typeuser == "analista" || this.logado.typeuser == "gerente") {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
   }
 
+  editTicket(ticket: Ticket){
+    Globals.ticket = ticket
+    console.log(Globals.ticket)
+    this.router.navigate(['/edit-ticket']);
+  }
+
+  clearSearch(){
+    this.tickets = this.ticketsPesquisados
+    this.idvalue = ""
+  }
+
+  searchTicket() {
+    var ticketEncontrado = [this.ticket];
+    this.ticketsPesquisados.forEach((ticketbody) => {
+      if (this.idvalue == ticketbody.id) {
+        ticketEncontrado = [ticketbody];
+      }
+    })
+
+    if(ticketEncontrado[0].id == ""){
+      this.tickets = []
+    }else{
+      this.tickets = ticketEncontrado
+    }
+    if(this.idvalue.length == 0){
+      this.tickets = this.ticketsPesquisados
+    }
+  }
 }
