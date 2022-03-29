@@ -127,10 +127,9 @@ export class ForgotpassComponent implements OnInit {
 
         let json = { email: this.email}
         alert("VERIFIQUE O EMAIL "+json.email.valueOf()+" E RELEMBRE A SUA SENHA! ")
-        
+
         this.tokenSolicitado = true;
       }
     }
-    this.email = ""
   }
 }

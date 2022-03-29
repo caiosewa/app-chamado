@@ -15,10 +15,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("Seja bem-vindo! Entre ou Cadastre-se para utilizar.")
+    console.log(this.users)
   }
 
   //  DECLARACAO DAS VARIAVEIS ---- LOGIN
   usuarioLogin = new Usuario("", "", "")
+  analista = new Usuario("analista@gmail.com", "@analista123", "analista")
+  usuario = new Usuario("usuario@gmail.com", "@usuario123", "usuario")
+  gerente = new Usuario("gerente@gmail.com", "@gerente123", "gerente")
+  users = [this.analista, this.usuario, this.gerente]
 
   email: string = "";
   password: string = "";
@@ -28,6 +33,8 @@ export class LoginComponent implements OnInit {
 
   emailPreenchido: Boolean = false;
   senhaPreenchida: Boolean = false;
+
+  loginsuccess: Boolean = false;
 
   _errorEmail: string = "";
   _errorPass: string = "";
@@ -95,8 +102,20 @@ export class LoginComponent implements OnInit {
         this.usuarioLogin.email = this.email
         this.usuarioLogin.password = this.password
 
-        let json = { login: this.usuarioLogin.email, password: this.usuarioLogin.password }
-        console.log(json)
+        var json = { login: this.usuarioLogin.email, password: this.usuarioLogin.password }
+        for (var user of this.users) {
+          if(json.login == user.email && json.password == user.password){
+            this.email = ""
+            this.password = ""
+            this.loginsuccess = true
+            alert("Logado com a conta de "+ user.typeuser)
+          }
+        }
+        if(!this.loginsuccess){
+          this.email = ""
+          this.password = ""
+          alert("Usuário ou senha inválidos")
+        }
       }
     }
 

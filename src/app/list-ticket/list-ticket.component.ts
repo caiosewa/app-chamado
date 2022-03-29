@@ -12,10 +12,10 @@ import { Usuario } from '../model/usuario';
 })
 export class ListTicketComponent implements OnInit {
 
-  ticket = new Ticket("", "", "", "");
-  ticket1 = new Ticket("1","Teste 01", "Aberto", "Alta" )
-  ticket2 = new Ticket("2","Teste 02", "Fechado", "Normal" )
-  ticket3 = new Ticket("3","Teste 03", "Em andamento", "Urgente" )
+  ticket = new Ticket("", "", "", "", "", "");
+  ticket1 = new Ticket("1","Teste 01", "Descricao do ticket 1", "Aberto", "baixo", "Caio Yuri Mattoso Sewa")
+  ticket2 = new Ticket("2","Teste 02", "Descricao do ticket 2", "Fechado", "normal", "Henrique Scansani" )
+  ticket3 = new Ticket("3","Teste 03", "Descricao do ticket 3", "Em andamento", "urgente", "Guilherme Barros")
 
   tickets = [this.ticket1,this.ticket2,this.ticket3];
 

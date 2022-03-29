@@ -1,7 +1,7 @@
 import { animate, animateChild, group, query, sequence, state, style, transition, trigger, useAnimation } from '@angular/animations';
 
 export const routeTransitionAnimations = trigger('triggerName', [
-  transition('login => register, register => new-ticket, new-ticket => list-ticket, list-ticket => my-profile, my-profile => new-ticket', [
+  transition('login => register, login => new-ticket, login => list-ticket, register => new-ticket, register => list-ticket, new-ticket => list-ticket, * => my-profile', [
     style({ position: 'relative' }),
     query(':enter, :leave', [
       style({
@@ -20,7 +20,7 @@ export const routeTransitionAnimations = trigger('triggerName', [
     query(':enter', animateChild())
   ]),
 
-  transition('register => login, new-ticket => register, list-ticket => new-ticket, my-profile => list-ticket, new-ticket => my-profile', [
+  transition('* => login, my-profile => list-ticket, my-profile => new-ticket, my-profile => register, list-ticket => new-ticket, list-ticket => register, new-ticket => register', [
     style({ position: 'relative' }),
     query(':enter, :leave', [
       style({
@@ -39,7 +39,7 @@ export const routeTransitionAnimations = trigger('triggerName', [
     query(':enter', animateChild())
   ]),
 
-  transition('login => forgotpass, forgotpass => login', [
+  transition('login => forgotpass, forgotpass => login, list-ticket => edit-ticket, edit-ticket => list-ticket', [
     style({
       position: 'relative'
     }),

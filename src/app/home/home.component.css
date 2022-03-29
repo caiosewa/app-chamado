@@ -298,3 +298,7 @@ select.form-control:not([size]):not([multiple]) {
   margin-top: 5px;
   font-size: 12px;
 }
+
+img{
+  margin-bottom: 15px;
+}

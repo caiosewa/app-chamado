@@ -14,9 +14,9 @@
 
             <form class="formrun" autocomplete="off">
               <div class="form-group">
-                <input type="email" name="email" class="form-control" [ngClass]="{'form-control-danger': _errorEmail}"
+                <input type="email" name="email" class="form-control" [ngClass]="{'form-control-danger': _errorEmail, 'form-disabled': tokenSolicitado}"
                   [(ngModel)]="email" required="required" placeholder="Email" id="loginInput" autocomplete="off"
-                  (blur)="validarEmail()">
+                  (blur)="validarEmail()" [disabled]="tokenSolicitado">
 
                 <i class="input-icon uil uil-at" [ngClass]="{'icon-danger': _errorEmail}"></i>
                 <div class="space">
@@ -63,7 +63,7 @@
                 </div>
               </div>
 
-              <a type="submit" class="btn mt-4" (click)="forgotPass()">Solicitar</a>
+              <a type="submit" class="btn mt-4" [ngClass]="{'btn-disabled': tokenSolicitado}" (click)="forgotPass()">Solicitar</a>
 
               <a type="submit" class="btn mt-4" [ngClass]="{'btn-disabled': !tokenSolicitado}" (click)="changePass()">Trocar Senha</a>
 

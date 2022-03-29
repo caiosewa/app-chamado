@@ -11,7 +11,7 @@
               <div class="form-group">
                 <input type="email" name="email" class="form-control"
                   [ngClass]="{'form-control-danger': _errorEmail}" [(ngModel)]="email" required="required"
-                  placeholder="Email" id="loginInput" autocomplete="off" (blur)="validarEmail()">
+                  placeholder="Email" id="loginInput" autocomplete="off" (blur)="validarEmail()" (keyup.enter)="login()">
 
                 <i class="input-icon uil uil-at" [ngClass]="{'icon-danger': _errorEmail}"></i>
                 <div class="space">
@@ -22,7 +22,7 @@
               <div class="form-group mt-2">
                 <input type="password" name="password" class="form-control"
                   [ngClass]="{'form-control-danger': _errorPass}" [(ngModel)]="password" required="required"
-                  placeholder="Senha" id="passwordInput" autocomplete="off" (blur)="isPassword()">
+                  placeholder="Senha" id="passwordInput" autocomplete="off" (blur)="isPassword()" (keyup.enter)="login()">
 
                 <i class="input-icon uil uil-lock-alt" [ngClass]="{'icon-danger': _errorPass}"></i>
                 <div class="space">

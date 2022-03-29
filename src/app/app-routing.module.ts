@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'forgotpass', component: ForgotpassComponent, data: { animationState: 'forgotpass' }},
   { path: 'list-ticket', component: ListTicketComponent, data: { animationState: 'list-ticket' }},
   { path: 'new-ticket', component: NewTicketComponent, data: { animationState: 'new-ticket' }},
-  { path: 'edit-ticket', component: EditTicketComponent},
+  { path: 'edit-ticket', component: EditTicketComponent, data: { animationState: 'edit-ticket' }},
   { path: 'my-profile', component: HomeComponent, data: { animationState: 'my-profile' }},
 ];
 

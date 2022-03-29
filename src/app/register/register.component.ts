@@ -175,7 +175,7 @@ export class RegisterComponent implements OnInit {
         this.userRegister.typeSelected = this.typeSelected
 
         let jsonReg = { name: this.userRegister.nameregister, email: this.userRegister.emailregister, password: this.userRegister.passwordregister, typeuser: this.userRegister.typeSelected}
-        console.log(jsonReg)
+        alert("Foi registrado usuario - " + "Nome: " + jsonReg.name + ", Email: " + jsonReg.email + ", Tipo: " + jsonReg.typeuser)
         this.router.navigate(['login'])
       }
     }
