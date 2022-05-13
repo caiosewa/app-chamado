@@ -4,6 +4,7 @@ import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { ForgotpassComponent } from './forgotpass/forgotpass.component';
 import { HomeComponent } from './home/home.component';
 import { ListTicketComponent } from './list-ticket/list-ticket.component';
+import { LoginIncorretoComponent } from './login-incorreto/login-incorreto.component';
 import { LoginComponent } from './login/login.component';
 import { NewTicketComponent } from './new-ticket/new-ticket.component';
 import { RegisterComponent } from './register/register.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'new-ticket', component: NewTicketComponent, data: { animationState: 'new-ticket' }},
   { path: 'edit-ticket', component: EditTicketComponent, data: { animationState: 'edit-ticket' }},
   { path: 'my-profile', component: HomeComponent, data: { animationState: 'my-profile' }},
+  { path: 'login-incorreto', component: LoginIncorretoComponent, data: { animationState: 'login-incorreto' }},
 ];
 
 @NgModule({

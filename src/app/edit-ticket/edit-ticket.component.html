@@ -19,34 +19,34 @@
                     <span class="legend titulo">
                       Título:
                     </span>
-                    <input type="text" name="titulo" class="form-control" [(ngModel)]="ticketEditable.titulo"
+                    <input type="text" name="titulo" class="form-control disabled" [(ngModel)]="ticketEditable.title"
                       [required]="true" placeholder="Título" id="tituloinput" autocomplete="off" [maxLength]="35">
-                    <span class="legend">({{ticketEditable.titulo.length}}/35)</span>
+                    <span class="legend">({{ticketEditable.title.length}}/35)</span>
                   </div>
 
                   <div class="form-group mt-2">
                     <span class="legend titulo">
                       Descrição:
                     </span>
-                    <textarea id="mensage" rows="5" cols="43" name="mensage" class="mensagem"
-                      [(ngModel)]="ticketEditable.descricao" [required]="true" [maxLength]="1000"
+                    <textarea id="mensage" rows="5" cols="43" name="mensage" class="mensagem disabled"
+                      [(ngModel)]="ticketEditable.description" [required]="true" [maxLength]="1000"
                       placeholder="Digite sua mensagem aqui." autocomplete="off"></textarea>
-                    <span class="legend">({{ticketEditable.descricao.length}}/1000)</span>
+                    <span class="legend">({{ticketEditable.description.length}}/1000)</span>
                   </div>
                   <div id="priority-container-0">
                     <span id="priority">Prioridade:</span>
                     <div id="priority-container-1">
-                      <input type="checkbox" value="baixo" id="baixo" [checked]="" (click)="onlyOne($event)"
-                        class="checkbox" />
-                      <span id="remember">Baixo</span>
+                      <input type="checkbox" value=0 id="baixa" [checked]="" (click)="onlyOne($event)" class="checkbox disabled"/>
+                      <span id="remember">Baixa</span>
 
-                      <input type="checkbox" value="normal" id="normal" [checked]="" (click)="onlyOne($event)"
-                        class="checkbox" />
-                      <span id="remember">Normal</span>
+                      <input type="checkbox" value=1 id="media" [checked]="" (click)="onlyOne($event)" class="checkbox disabled"/>
+                      <span id="remember">Media</span>
 
-                      <input type="checkbox" value="urgente" id="urgente" [checked]="" (click)="onlyOne($event)"
-                        class="checkbox" />
-                      <span id="remember">Urgente</span>
+                      <input type="checkbox" value=2 id="alta" [checked]="" (click)="onlyOne($event)" class="checkbox disabled"/>
+                      <span id="remember">Alta</span>
+
+                      <input type="checkbox" value=3 id="imediata" [checked]="" (click)="onlyOne($event)" class="checkbox disabled"/>
+                      <span id="remember">Imediata</span>
                     </div>
                   </div>
                 </div>
@@ -54,13 +54,35 @@
 
                   <div class="form-group">
                     <span class="legend titulo">
+                      Id:
+                    </span>
+                    <input type="text" name="idTicket" class="form-control disabled" [disabled]="true"
+                      [(ngModel)]="ticketEditable.idTicket" [required]="true" placeholder="Ticket Id"
+                      id="idinput" autocomplete="off" [maxLength]="35">
+
+                    <span class="legend titulo operador">
                       Solicitado por:
                     </span>
                     <input type="text" name="solicitante" class="form-control disabled" [disabled]="true"
-                      [(ngModel)]="ticketEditable.solicitante" [required]="true" placeholder="Nome do Solicitante"
+                      [(ngModel)]="ticketEditable.nameCliente" [required]="true" placeholder="Nome do Solicitante"
                       id="solicitanteinput" autocomplete="off" [maxLength]="35">
-                  </div>
 
+                    <span class="legend titulo operador">
+                      Operador:
+                    </span>
+                    <select type="select" name="operador" [ngClass]="{'disabled': !isAdmin || isClose}" class="form-control select" (change)="getOperator($event)">
+                        <option selected>{{ticketEditable.nameOperator}}</option>
+                        <option value="{{operator.idUser}}" *ngFor="let operator of operators">{{operator.name}}</option>
+                    </select>
+                    <span class="legend titulo operador">
+                      Status:
+                    </span>
+                    <input type="text" name="status" class="form-control disabled" [disabled]="true"
+                        [(ngModel)]="ticketEditable.status" [required]="true" placeholder="Status do ticket"
+                        id="statusinput" autocomplete="off" [maxLength]="35">
+                  </div>
+                </div>
+                <div class="form3">
                   <div class="tbl-header">
                     <table cellpadding="0" cellspacing="0" border="0">
                       <thead>
@@ -73,24 +95,24 @@
                   <div class="tbl-content">
                     <table cellpadding="0" cellspacing="0" border="0">
                       <tbody>
-                        <tr *ngFor="let mensage of mensages">
-                          <td style="width:110px; text-align: right;">{{mensage.user}} : </td>
-                          <td>{{mensage.text}}</td>
+                        <tr *ngFor="let message of messages">
+                          <td style="width:110px; text-align: right;">{{message.nameUser}} : </td>
+                          <td>{{message.message}}</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                   <form class="form-mensagem">
-                    <textarea id="answers" name="answers" class="answers" [(ngModel)]="answer"
+                    <textarea id="answers" name="answers" [ngClass]="{'disabled': isClose}" class="answers" [(ngModel)]="answer"
                       placeholder="Enviar uma mensagem..." autocomplete="off"></textarea>
                     <a type="submit" class="enviar" (click)="enviarMensagem()">
                       Enviar mensagem
                     </a>
-                </form>
+                  </form>
                 </div>
               </div>
               <a type="submit" class="btn" style="margin-top: 5.5vh;" (click)="salvarChamado()">Salvar</a>
-              <a type="submit" class="btn" style="margin-top: 5.5vh; margin-left: 15px; width:max-content; background-color: #c98181;" (click)="salvarChamado()">Encerrar chamado</a>
+              <a type="submit" class="btn" style="margin-top: 5.5vh; margin-left: 15px; width:max-content; background-color: #c98181;" (click)="encerrarChamado()">Encerrar chamado</a>
             </form>
 
 

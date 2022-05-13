@@ -1,33 +1,43 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import api from 'src/services/api';
+import { Globals } from '../model/Globals';
+import { Usuario } from '../model/usuario';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  providers: [Globals]
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   logado: boolean = false;
-  testando: boolean = false;
+  isAdmin: boolean = false;
 
   ngOnInit(): void {
-    var option = 0;
-    var test = 1;
 
-    if (option == 0 && test == 1) {
-      this.logado = false;
-      this.testando = true;
-    }
-    if (option == 0 && test == 0) {
-      this.logado = false;
-      this.testando = false;
-    }
-    if (option == 1 && test == 0) {
+    if (localStorage.getItem("token")) {
       this.logado = true;
-      this.testando = false;
+      if(localStorage.getItem("role") == "Gerente" || localStorage.getItem("role") == "Analista"){
+        this.isAdmin = true;
+      }else{
+        this.isAdmin = false;
+      }
+    }else{
+      this.logado = false;
     }
+  }
+
+  logout(){
+    localStorage.removeItem("email")
+    localStorage.removeItem("token")
+    localStorage.removeItem("name")
+    localStorage.removeItem("idRole")
+    localStorage.removeItem("role")
+    window.location.assign('/login')
   }
 
 }

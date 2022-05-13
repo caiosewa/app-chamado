@@ -12,9 +12,9 @@ export const routeTransitionAnimations = trigger('triggerName', [
       })
     ]),
     query(':enter', [style({ right: '-100%', opacity: 0 })]),
-    query(':leave', animateChild()),
+    query(':leave', animateChild(), { optional: true }),
     group([
-      query(':leave', [animate('1s ease-out', style({ right: '100%', opacity: 0 }))]),
+      query(':leave', [animate('1s ease-out', style({ right: '100%', opacity: 0 }))], { optional: true }),
       query(':enter', [animate('1s ease-out', style({ right: '0%', opacity: 1 }))])
     ]),
     query(':enter', animateChild())
@@ -31,15 +31,15 @@ export const routeTransitionAnimations = trigger('triggerName', [
       })
     ]),
     query(':enter', [style({ left: '-100%', opacity: 0 })]),
-    query(':leave', animateChild()),
+    query(':leave', animateChild(), { optional: true }),
     group([
-      query(':leave', [animate('1s ease-out', style({ left: '100%', opacity: 0 }))]),
+      query(':leave', [animate('1s ease-out', style({ left: '100%', opacity: 0 }))], { optional: true }),
       query(':enter', [animate('1s ease-out', style({ left: '0%', opacity: 1 }))])
     ]),
     query(':enter', animateChild())
   ]),
 
-  transition('login => forgotpass, forgotpass => login, list-ticket => edit-ticket, edit-ticket => list-ticket', [
+  transition('login => forgotpass, forgotpass => login, list-ticket => edit-ticket, edit-ticket => list-ticket, login => login-incorreto, login-incorreto => login', [
     style({
       position: 'relative'
     }),
@@ -55,9 +55,9 @@ export const routeTransitionAnimations = trigger('triggerName', [
       opacity: 0,
       transform: 'perspective(500px) translateZ(-500px)',
     })]),
-    query(':leave', animateChild()),
+    query(':leave', animateChild(), { optional: true }),
     group([
-      query(':leave', [animate('1s ease-in', style({ opacity: 0, transform: 'perspective(500px) translateZ(-500px)'}))]),
+      query(':leave', [animate('1s ease-in', style({ opacity: 0, transform: 'perspective(500px) translateZ(-500px)'}))], { optional: true }),
       query(':enter', [animate('1s ease', style({ opacity:1, transform: 'perspective(500px) translateZ(0px)'}))])
     ]),
     query(':enter', animateChild())

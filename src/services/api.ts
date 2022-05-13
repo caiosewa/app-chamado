@@ -5,7 +5,7 @@ import axios from "axios";
 // COLOCAR URL DA API
 
 const api = axios.create({
-  baseURL: "http://main.barroscasa.me:8550/",
+  baseURL: "http://flask-proxy-api.herokuapp.com/",
 });
 
 export default api;

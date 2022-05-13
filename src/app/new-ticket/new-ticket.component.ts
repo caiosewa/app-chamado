@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import api from 'src/services/api';
 import { Ticket } from '../model/ticket';
 
 @Component({
@@ -8,11 +10,11 @@ import { Ticket } from '../model/ticket';
 })
 export class NewTicketComponent implements OnInit {
 
-  ticketOpened = new Ticket("", "", "", "", "", "")
-
+  ticketOpened = new Ticket(0, 0, "", 0, "", "", "", 0, 0, "", "");
+  headers = {}
   titulo: string = "";
   mensage: string = "";
-  priority: any = "";
+  priority: any;
 
   _errorTitulo: string = "";
   _errorMensage: string = "";
@@ -24,9 +26,22 @@ export class NewTicketComponent implements OnInit {
   descricaoOK: boolean = false;
   prioridadeOK: boolean = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem("token")) {
+      this.headers ={"Token": localStorage.getItem("token")}
+      api.get('user/'+ localStorage.getItem("email"), {headers: this.headers})
+      .then(response => {
+        this.ticketOpened.idCliente = response.data.idUser
+      }).catch(error => {
+        if (error){
+          this.router.navigate(['/login']);
+        }
+      })
+    } else {
+      this.router.navigate(['/login'])
+    }
   }
 
   abrirChamado(){
@@ -35,7 +50,7 @@ export class NewTicketComponent implements OnInit {
       this.tituloOK = false
     }else{
       this._errorTitulo = ""
-      this.ticketOpened.titulo = this.titulo
+      this.ticketOpened.title = this.titulo
       this.tituloOK = true
     }
     if(this.mensage.length == 0) {
@@ -43,7 +58,7 @@ export class NewTicketComponent implements OnInit {
       this.descricaoOK = false
     }else{
       this._errorMensage = ""
-      this.ticketOpened.descricao = this.mensage
+      this.ticketOpened.description = this.mensage
       this.descricaoOK = true
     }
     if(this.priority == ""){
@@ -53,9 +68,15 @@ export class NewTicketComponent implements OnInit {
       this.prioridadeOK = true
     }
     if(this.tituloOK && this.descricaoOK && this.prioridadeOK){
-      this.ticketOpened.status = "Aberto"
-      this.ticketOpened.id = "1"
-      alert("Ticket aberto- Id: " +this.ticketOpened.id+", Titulo: "+this.ticketOpened.titulo+", Status: "+this.ticketOpened.status+", Prioridade: "+this.ticketOpened.prioridade)
+      var ticketToOpen = {"idCliente": this.ticketOpened.idCliente, "title": this.ticketOpened.title, "description": this.ticketOpened.description, "priority": this.ticketOpened.priority, "statusId": 1}
+      this.headers ={"Token": localStorage.getItem("token")}
+      api.post('ticket', ticketToOpen, {headers: this.headers})
+      .then(response => {
+        alert("Ticket aberto- ID - "+response.data.idTicket+", Titulo: "+response.data.title+" --- Anote o ID para consultar o status!")
+        this.router.navigate(['/list-ticket'])
+      }).catch(error => {
+        alert("Error ao inserir ticket, tente logar novamente!")
+      });
     }
 
 
@@ -67,24 +88,33 @@ export class NewTicketComponent implements OnInit {
 
   onlyOne(event: any) {
 
-    var baixo = <HTMLInputElement> document.getElementById('baixo')
-    var normal = <HTMLInputElement> document.getElementById('normal')
-    var urgente = <HTMLInputElement> document.getElementById('urgente')
+    var baixa = <HTMLInputElement> document.getElementById('baixa')
+    var media = <HTMLInputElement> document.getElementById('media')
+    var alta = <HTMLInputElement> document.getElementById('alta')
+    var imediata = <HTMLInputElement> document.getElementById('imediata')
     this.priority = event.target.value;
 
-    this.ticketOpened.prioridade = this.priority
+    this.ticketOpened.priority = Number(this.priority)
 
-    if(this.priority == baixo.value){
-      normal.checked = false;
-      urgente.checked = false;
+    if(this.priority == baixa.value){
+      media.checked = false;
+      alta.checked = false;
+      imediata.checked = false;
     }
-    if(this.priority == normal.value){
-      baixo.checked = false;
-      urgente.checked = false;
+    if(this.priority == media.value){
+      baixa.checked = false;
+      alta.checked = false;
+      imediata.checked = false;
     }
-    if(this.priority == urgente.value){
-      normal.checked = false;
-      baixo.checked = false;
+    if(this.priority == alta.value){
+      baixa.checked = false;
+      media.checked = false;
+      imediata.checked = false;
+    }
+    if(this.priority == imediata.value){
+      baixa.checked = false;
+      alta.checked = false;
+      media.checked = false;
     }
 
 }

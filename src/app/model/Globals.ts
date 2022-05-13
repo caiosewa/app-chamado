@@ -1,5 +1,7 @@
 import { Ticket } from "./ticket";
+import { Usuario } from "./usuario";
 
 export class Globals {
-    public static ticket: Ticket;
+    public static TICKET: Ticket;
+    public static USER: Usuario;
 }

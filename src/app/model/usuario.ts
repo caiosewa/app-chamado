@@ -1,7 +1,8 @@
 export class Usuario {
   constructor(
+    public idUser: Number,
     public email: String,
-    public password: String,
-    public typeuser: String
+    public name: String,
+    public idRole: Number
     ){}
 }

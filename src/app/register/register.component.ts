@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import api from 'src/services/api';
 import { Register } from '../model/register';
 
 @Component({
@@ -12,6 +13,7 @@ export class RegisterComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+
   }
 
   //  DECLARACAO DAS VARIAVEIS ----  REGISTER
@@ -174,21 +176,17 @@ export class RegisterComponent implements OnInit {
         this.userRegister.passwordregister = this.passwordregister
         this.userRegister.typeSelected = this.typeSelected
 
-        let jsonReg = { name: this.userRegister.nameregister, email: this.userRegister.emailregister, password: this.userRegister.passwordregister, typeuser: this.userRegister.typeSelected}
-        alert("Foi registrado usuario - " + "Nome: " + jsonReg.name + ", Email: " + jsonReg.email + ", Tipo: " + jsonReg.typeuser)
-        this.router.navigate(['login'])
+        let jsonReg = { email: this.userRegister.emailregister, password: this.userRegister.passwordregister, name: this.userRegister.nameregister, idRole: Number(this.userRegister.typeSelected)}
+        api.post("User", jsonReg)
+        .then(response => {
+          alert("Foi registrado usuario - ID: "+ response.data.idUser + ", Nome: " + response.data.name + ", Email: " + response.data.email)
+          this.router.navigate(['login'])
+        }).catch(error => {
+          alert("Error ao registrar usuário - "+ error)
+          window.location.reload()
+        });
       }
     }
-
-    // let json = { login: newUser?.value, password: newPassword?.value}
-    // console.log(json)
-    // api.post("register", json)
-    // .then((response) => {
-    //   console.log(response)
-    //   alert("REGISTRADO COM SUCESSO")
-    // }).catch((error) => {
-    //   alert(error.response.data)
-    // })
   }
 
 }

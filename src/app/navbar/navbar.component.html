@@ -1,19 +1,26 @@
-<nav class="links" style="--items: 2;" *ngIf='!logado && !testando'>
+<nav class="links" style="--items: 2;" *ngIf='!logado'>
   <a class="item" routerLinkActive="active" [routerLink]="'/login'">Entrar</a>
   <a class="item" routerLinkActive="active" [routerLink]="'/register'">Registrar-se</a>
   <span class="line"></span>
 </nav>
-<nav class="links" style="--items: 3;" *ngIf='logado && !testando'>
+<nav class="links" style="--items: 4;" *ngIf='logado && !isAdmin'>
   <a class="item" routerLinkActive="active" [routerLink]="'/new-ticket'">Novo Ticket</a>
   <a class="item" routerLinkActive="active" [routerLink]="'/list-ticket'">Lista de Tickets</a>
   <a class="item" routerLinkActive="active" [routerLink]="'/my-profile'">Meu Perfil</a>
+  <a class="item" (click)="logout()">Sair</a>
   <span class="line"></span>
 </nav>
-<nav class="links" style="--items: 5;" *ngIf='!logado && testando'>
+<nav class="links" style="--items: 3;" *ngIf='logado && isAdmin'>
+  <a class="item" routerLinkActive="active" [routerLink]="'/list-ticket'">Lista de Tickets</a>
+  <a class="item" routerLinkActive="active" [routerLink]="'/my-profile'">Meu Perfil</a>
+  <a class="item" (click)="logout()">Sair</a>
+  <span class="line"></span>
+</nav>
+<!-- <nav class="links" style="--items: 5;" *ngIf='!logado && testando'>
   <a class="item" routerLinkActive="active" [routerLink]="'/login'">Entrar</a>
   <a class="item" routerLinkActive="active" [routerLink]="'/register'">Registrar-se</a>
   <a class="item" routerLinkActive="active" [routerLink]="'/new-ticket'">Novo Ticket</a>
   <a class="item" routerLinkActive="active" [routerLink]="'/list-ticket'">Lista de Tickets</a>
   <a class="item" routerLinkActive="active" [routerLink]="'/my-profile'">Meu Perfil</a>
   <span class="line"></span>
-</nav>
+</nav> -->

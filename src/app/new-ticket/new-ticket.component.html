@@ -14,7 +14,7 @@
                 <span class="legend">({{this.titulo.length}}/35)</span>
               </div>
 
-              <div class="form-group mt-2">
+              <div class="form-group">
                 <textarea id="mensage" rows="5" cols="43" name="mensage" class="mensagem" [(ngModel)]="mensage" [required]="true" [maxLength]="1000"
                   placeholder="Digite sua mensagem aqui." autocomplete="off" [ngClass]="{'mensagem-danger': _errorMensage}" (blur)="_errorMensage = '' "></textarea>
                 <span class="legend">({{this.mensage.length}}/1000)</span>
@@ -22,14 +22,17 @@
               <div id="priority-container-0">
                 <span id="priority">Prioridade:</span>
                 <div id="priority-container-1">
-                  <input type="checkbox" value="baixo" id="baixo" [checked]="" (click)="onlyOne($event)" class="checkbox"/>
-                  <span id="remember">Baixo</span>
+                  <input type="checkbox" value=0 id="baixa" [checked]="" (click)="onlyOne($event)" class="checkbox"/>
+                  <span id="remember">Baixa</span>
 
-                  <input type="checkbox" value="normal" id="normal" [checked]="" (click)="onlyOne($event)" class="checkbox"/>
-                  <span id="remember">Normal</span>
+                  <input type="checkbox" value=1 id="media" [checked]="" (click)="onlyOne($event)" class="checkbox"/>
+                  <span id="remember">Media</span>
 
-                  <input type="checkbox" value="urgente" id="urgente" [checked]="" (click)="onlyOne($event)" class="checkbox"/>
-                  <span id="remember">Urgente</span>
+                  <input type="checkbox" value=2 id="alta" [checked]="" (click)="onlyOne($event)" class="checkbox"/>
+                  <span id="remember">Alta</span>
+
+                  <input type="checkbox" value=3 id="imediata" [checked]="" (click)="onlyOne($event)" class="checkbox"/>
+                  <span id="remember">Imediata</span>
                 </div>
               </div>
               <a type="submit" class="btn mt-4" (click)="abrirChamado()">Abrir</a>

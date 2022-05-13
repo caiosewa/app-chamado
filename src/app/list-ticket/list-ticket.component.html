@@ -15,27 +15,37 @@
                       <th>Título</th>
                       <th style="width:150px">Status</th>
                       <th style="width:150px">Prioridade</th>
+                      <th style="width:150px">Operador</th>
                       <th style="width:120px"></th>
                     </tr>
                   </thead>
                 </table>
               </div>
+              <div *ngIf="notFound">
+                <h3>Não foi encontrado nenhum ticket!</h3>
+              </div>
               <div class="tbl-content">
                 <table cellpadding="0" cellspacing="0" border="0">
                   <tbody>
                     <tr *ngFor="let ticket of tickets">
-                      <td style="width:100px">{{ticket.id}}</td>
-                      <td>{{ticket.titulo}}</td>
+                      <td style="width:100px">{{ticket.idTicket}}</td>
+                      <td>{{ticket.title}}</td>
                       <td style="width:150px">{{ticket.status}}</td>
-                      <td style="width:150px">{{ticket.prioridade}}</td>
-                      <td *ngIf='isAdmin' style="width:120px"><a class="link" (click)="editTicket(ticket)">Editar</a></td>
-                      <td *ngIf='!isAdmin' style="width:120px"><a class="link" (click)="editTicket(ticket)">Edit/View</a></td>
+                      <td style="width:150px">{{ticket.namePriority}}</td>
+                      <td style="width:150px" *ngIf="ticket.nameOperator">{{ticket.nameOperator.split(" ")[0] + " " + ticket.nameOperator.split(" ")[1]}}</td>
+                      <td style="width:150px" *ngIf="!ticket.nameOperator"></td>
+                      <!-- <td *ngIf='isAdmin' style="width:120px"><a class="link" (click)="editTicket(ticket)">Editar</a></td> -->
+                      <td style="width:120px"><a class="link" (click)="editTicket(ticket)">Visualizar</a></td>
                   </tr>
                   </tbody>
                 </table>
               </div>
               <div class="div-tab">
-                <button class="new-ticket" *ngIf='!isAdmin' [routerLink]="'/new-ticket'">Criar Ticket</button>
+                <div>
+                  <button class="new-ticket" *ngIf='!isAdmin' [routerLink]="'/new-ticket'">Criar Ticket</button>
+                  <button class="new-ticket" *ngIf='isAdmin' (click)="listTicketByOperator()">Meus Tickets</button>
+                  <button class="new-ticket" *ngIf='isAdmin' (click)="listAllTicket()">Todos Tickets</button>
+                </div>
                 <form class="search-form">
                   <button type="submit" class="search-button" (click)="searchTicket()">
                     <svg class="submit-button">
@@ -48,8 +58,8 @@
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
                   </svg>
                 </button>
-              </form>
-            </div>
+                </form>
+              </div>
           </section>
           </div>
         </div>

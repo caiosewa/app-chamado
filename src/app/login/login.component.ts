@@ -4,26 +4,63 @@ import { Router } from '@angular/router';
 import { Usuario } from 'src/app/model/usuario';
 import { Register } from 'src/app/model/register';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { response } from 'express';
+import { Globals } from '../model/Globals';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [Globals]
 })
 
 export class LoginComponent implements OnInit {
 
+  headers = {}
+  roles= [{"id": 1, "role": "Gerente"}, {"id": 2, "role": "Analista"}, {"id": 3, "role": "Cliente"}]
+  // usuarioLogado = new Usuario(0 , "", "", 0)
+
+  // setUserGlobal(user: any){
+  //   this.usuarioLogado.email = user.data.email
+  //   this.usuarioLogado.name = user.data.name
+  //   this.usuarioLogado.idRole = user.data.idRole
+  //   this.usuarioLogado.idUser = user.data.idUser
+  //   Globals.USER = this.usuarioLogado
+
+  // }
+
   ngOnInit(): void {
-    console.log("Seja bem-vindo! Entre ou Cadastre-se para utilizar.")
-    console.log(this.users)
+
+    if (localStorage.getItem("token")) {
+      this.headers ={"Token": localStorage.getItem("token")}
+      api.get('user/'+ localStorage.getItem("email"), {headers: this.headers})
+      .then(response => {
+        // this.setUserGlobal(response)
+        this.router.navigate(['my-profile']);
+      }).catch(error => {
+        console.log(error)
+        // Globals.USER = new Usuario(0, "", "", 0)
+        localStorage.removeItem("email")
+        localStorage.removeItem("token")
+        localStorage.removeItem("name")
+        localStorage.removeItem("idRole")
+        localStorage.removeItem("idUser")
+        localStorage.removeItem("role")
+        localStorage.removeItem("idTicket")
+      })
+      // this.router.navigate(['admin']);
+    } else {
+      console.log("Seja bem-vindo! Entre ou Cadastre-se para utilizar.")
+      localStorage.clear()
+    }
+
   }
 
   //  DECLARACAO DAS VARIAVEIS ---- LOGIN
-  usuarioLogin = new Usuario("", "", "")
-  analista = new Usuario("analista@gmail.com", "@analista123", "analista")
-  usuario = new Usuario("usuario@gmail.com", "@usuario123", "usuario")
-  gerente = new Usuario("gerente@gmail.com", "@gerente123", "gerente")
-  users = [this.analista, this.usuario, this.gerente]
+  // analista = new Usuario("analista@gmail.com", "@analista123", "analista")
+  // usuario = new Usuario("usuario@gmail.com", "@usuario123", "usuario")
+  // gerente = new Usuario("gerente@gmail.com", "@gerente123", "gerente")
+  // users = [this.analista, this.usuario, this.gerente]
 
   email: string = "";
   password: string = "";
@@ -75,7 +112,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
   login() {
 
     if (this.email.length <= 0) {
@@ -99,35 +135,26 @@ export class LoginComponent implements OnInit {
         this._errorEmail = "";
         this._errorPass = "";
 
-        this.usuarioLogin.email = this.email
-        this.usuarioLogin.password = this.password
+        var json = { email: this.email, password: this.password }
 
-        var json = { login: this.usuarioLogin.email, password: this.usuarioLogin.password }
-        for (var user of this.users) {
-          if(json.login == user.email && json.password == user.password){
-            this.email = ""
-            this.password = ""
-            this.loginsuccess = true
-            alert("Logado com a conta de "+ user.typeuser)
-          }
-        }
-        if(!this.loginsuccess){
-          this.email = ""
-          this.password = ""
-          alert("Usuário ou senha inválidos")
-        }
+        api.post("login", json)
+        .then((response) => {
+          this.roles.forEach(element => {
+            if (element.id == response.data.idRole) {
+              localStorage.setItem("role", element.role)
+            }
+          });
+          localStorage.setItem("token", response.data.token)
+          localStorage.setItem("email", response.data.email)
+          localStorage.setItem("name", response.data.name)
+          localStorage.setItem("idRole", response.data.idRole)
+          localStorage.setItem("idUser", response.data.idUser)
+          window.location.assign('/my-profile')
+        }).catch((error) => {
+          console.log(error)
+          this.router.navigate(['login-incorreto']);
+        })
       }
     }
-
   }
-
-
-    //   api.post("login", json)
-
-    //   .then((response) => {
-    //     this.router.navigate(['home']);
-    //   }).catch((error) => {
-    //     alert("Usuário ou senha incorreta!")
-    //   })
-
 }

@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 
@@ -19,6 +18,7 @@ import { NewTicketComponent } from './new-ticket/new-ticket.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterComponent } from './register/register.component';
+import { LoginIncorretoComponent } from './login-incorreto/login-incorreto.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { RegisterComponent } from './register/register.component';
     NewTicketComponent,
     EditTicketComponent,
     NavbarComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginIncorretoComponent
   ],
   imports: [
     BrowserModule,
@@ -45,8 +46,7 @@ import { RegisterComponent } from './register/register.component';
   providers: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    MaterialModule
+    MaterialModule,
   ],
   bootstrap: [AppComponent]
 })

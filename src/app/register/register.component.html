@@ -57,9 +57,9 @@
               <div class="form-group mt-2">
                 <select id="usertype" class="form-control" [ngClass]="{'form-control-danger': _errorType}" (blur)="getType($event)">
                   <option value="">Selecione um tipo de Usuário</option>
-                  <option value="Usuario">Usuario</option>
-                  <option value="Analista">Analista</option>
-                  <option value="Gerente">Gerente</option>
+                  <option value=1>Gerente</option>
+                  <option value=2>Analista</option>
+                  <option value=3>Cliente</option>
                 </select>
                 <div class="space">
                   <div class="text-danger" *ngIf='_errorType !== ""'>{{_errorType}}</div>
