@@ -27,7 +27,7 @@
               <div class="form-group">
                 <input type="text" name="tokenreset" class="form-control"
                   [ngClass]="{'form-control-danger': _errorToken, 'form-disabled': !tokenSolicitado}"
-                  [(ngModel)]="tokenreset" required="required" placeholder="Token de 6 dígitos" id="tokenreset"
+                  [(ngModel)]="tokenreset" required="required" placeholder="Token" id="tokenreset"
                   autocomplete="off" (blur)="validarToken()" [maxLength]="6" [disabled]="!tokenSolicitado">
 
                 <i class="iconify" id=secret data-icon="uil:keyhole-square"

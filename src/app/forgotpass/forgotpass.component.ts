@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import api from 'src/services/api';
 
 @Component({
   selector: 'app-forgotpass',
@@ -108,7 +109,20 @@ export class ForgotpassComponent implements OnInit {
   }
 
   changePass() {
-
+    var jsonReset = {
+      "email": this.email,
+      "password": this.passwordregister,
+      "confirmPassword": this.passwordconfirm,
+      "recoverToken": this.tokenreset
+    }
+    api.patch('User/changePassword', jsonReset)
+    .then(response => {
+      alert("SUA SENHA FOI ALTERADA COM SUCESSO! VOCÊ SERÁ DIRECIONADO PARA O LOGIN...")
+      this.router.navigate(['/login']);
+    }).catch(error => {
+      alert("HOUVE UM ERRO NA TROCA DA SENHA, TENTE NOVAMENTE!")
+      this.router.navigate(['/forgotpass']);
+    })
   }
 
   forgotPass() {
@@ -124,11 +138,14 @@ export class ForgotpassComponent implements OnInit {
       this.validarEmail();
       if (this.emailOk) {
         this._errorEmail = "";
-
-        let json = { email: this.email}
-        alert("VERIFIQUE O EMAIL "+json.email.valueOf()+" E RELEMBRE A SUA SENHA! ")
-
-        this.tokenSolicitado = true;
+        api.get('User/recoverPassword/' + this.email)
+        .then(response => {
+          this.tokenSolicitado = true;
+          alert("VERIFIQUE O EMAIL " + this.email + " E UTILIZE O TOKEN PARA TROCAR A SENHA!")
+        }).catch(error => {
+          this.tokenSolicitado = false;
+          alert("HOUVE UM ERRO NO ENVIO DO TOKEN, TENTE NOVAMENTE!")
+        })
       }
     }
   }

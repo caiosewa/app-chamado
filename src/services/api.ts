@@ -5,7 +5,7 @@ import axios from "axios";
 // COLOCAR URL DA API
 
 const api = axios.create({
-  baseURL: "http://flask-proxy-api.herokuapp.com/",
+  baseURL: "https://kegangu-proxy.herokuapp.com/",
 });
 
 export default api;
